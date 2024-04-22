@@ -15,10 +15,10 @@ api_secret = os.getenv('API_SECRET'),
 )
 
 
-def up_image(url,name):
+async def up_image(url,name):
     try:
-        response = cloudinary.uploader.upload(url, public_id=name, overwrite=True, ocr = "adv_ocr")
-        return response["info"]["ocr"]["adv_ocr"]["data"][0]["fullTextAnnotation"]["text"]
+        response = await cloudinary.uploader.upload(url, public_id=name, overwrite=True, ocr = "adv_ocr")
+        return response
     except Exception as error:
         print("Error",error)
     
@@ -37,10 +37,10 @@ app.add_middleware(
 )
 
 @app.get("/")
-def initial():
+async def initial():
     return { 'hello wold' }
 
 @app.get("/api/cloudinary")
-def read_root(url,name):
-    response = up_image(url,name)
+async def cloudinary_ocr(url,name):
+    response = await up_image(url,name)
     return response
