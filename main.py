@@ -25,6 +25,9 @@ def up_image(url,name):
 
 app = FastAPI()
 
+@app.get("/")
+def initial():
+    return { 'hello wold' }
 
 @app.get("/api/cloudinary")
 def read_root(url,name):
