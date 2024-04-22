@@ -15,9 +15,9 @@ api_secret = os.getenv('API_SECRET'),
 )
 
 
-async def up_image(url,name):
+def up_image(url,name):
     try:
-        response = await cloudinary.uploader.upload(url, public_id=name, overwrite=True, ocr = "adv_ocr")
+        response = cloudinary.uploader.upload(url, public_id=name, overwrite=True, ocr = "adv_ocr")
         return response
     except Exception as error:
         print("Error",error)
@@ -42,5 +42,5 @@ async def initial():
 
 @app.get("/api/cloudinary")
 async def cloudinary_ocr(url,name):
-    response = await up_image(url,name)
+    response = up_image(url,name)
     return response
